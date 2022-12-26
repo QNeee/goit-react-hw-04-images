@@ -93,8 +93,8 @@ export const App = () => {
     })
   }
   return (<AppContainer><Searchbar onSubmit={onSubmit} />
-    {data.length > 0 && <ImageGallery options={data} onClick={onClick} />}
-    {modal.length > 0 && <Modal options={modal} onClickOverlay={onClickOverlay} />}
+    {data.length > 0 && <ImageGallery images={data} onClick={onClick} />}
+    {modal.length > 0 && <Modal image={modal} onClickOverlay={onClickOverlay} />}
     {loading === true && <Button onClickLoadMore={onClickLoadMore} />}
     {status === statusMachine.PENDING && <Loader />}
     {status === statusMachine.ERROR && <Notification message="No data!! Please enter valid value" />}
