@@ -1,7 +1,7 @@
 import { Audio } from 'react-loader-spinner'
-
+import { Container } from './Loader.styled'
 export const Loader = () => {
-    return <Audio>
+    return <Container><Audio>
         height="80"
         width="80"
         radius="9"
@@ -9,5 +9,5 @@ export const Loader = () => {
         ariaLabel='three-dots-loading'
         wrapperStyle
         wrapperClass
-    </Audio>
+    </Audio></Container>
 }

@@ -31,6 +31,7 @@ export const App = () => {
   const onSubmit = (data) => {
     page = 1;
     setData([]);
+    setLoading(false);
     setinputValue(data.inputValue);
     setstatus(statusMachine.PENDING);
     fetchImages(data.inputValue, page, per_page).then(({ data }) => {
@@ -42,9 +43,6 @@ export const App = () => {
       if (data.totalHits === 0) {
         setLoading(false);
         setstatus(statusMachine.ERROR);
-      }
-      if (data.totalHits < per_page && data.totalHits !== 0) {
-        setLoading(false);
       }
     });
   }

@@ -3,7 +3,6 @@ import { Header, Button, Input, Form } from "./Searchbar.styled";
 import PropTypes from "prop-types";
 export const Searchbar = (props) => {
     const [inputValue, setInputValue] = useState('');
-
     const onSubmit = (e) => {
         e.preventDefault();
         if (!inputValue.trim()) return;
