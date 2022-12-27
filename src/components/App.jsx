@@ -77,19 +77,15 @@ export const App = () => {
     fetchImages(inputValue, page, per_page).then(({ data }) => {
       plavno();
       if (data.hits.length < per_page) {
-        setData(prevState =>
-          [...prevState, ...data.hits]
-        );
         setLoading(false);
         setstatus(statusMachine.RESOLVED);
       } else {
-        setData(prevState =>
-          [...prevState, ...data.hits]
-        );
         setLoading(true);
         setstatus(statusMachine.REJECTED);
-
       }
+      return setData(prevState =>
+        [...prevState, ...data.hits]
+      );
     })
   }
   return (<AppContainer><Searchbar onSubmit={onSubmit} />
@@ -97,7 +93,7 @@ export const App = () => {
     {modal.length > 0 && <Modal image={modal} onClickOverlay={onClickOverlay} />}
     {loading === true && <Button onClickLoadMore={onClickLoadMore} />}
     {status === statusMachine.PENDING && <Loader />}
-    {status === statusMachine.ERROR && <Notification message="No data!! Please enter valid value" />}
+    {status === statusMachine.ERROR && <Notification message={`No data for ${inputValue}!! Please enter valid value`} />}
     {status === statusMachine.RESOLVED && <Notification message="End of List" />}
   </AppContainer>)
 }
