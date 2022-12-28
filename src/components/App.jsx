@@ -27,7 +27,7 @@ export const App = () => {
     } else {
       window.removeEventListener("keydown", onExitEsc);
     }
-  })
+  }, [modal]);
   const onSubmit = (data) => {
     page = 1;
     setData([]);
@@ -58,7 +58,7 @@ export const App = () => {
       setmodal([]);
     }
   }
-  const plavno = () => {
+  const slowScreen = () => {
     const { height: cardHeight } = document
       .querySelector(".css-6gimhd")
       .firstElementChild.getBoundingClientRect();
@@ -73,7 +73,7 @@ export const App = () => {
     setLoading(false);
     setstatus(statusMachine.PENDING);
     fetchImages(inputValue, page, per_page).then(({ data }) => {
-      plavno();
+      slowScreen();
       if (data.hits.length < per_page) {
         setLoading(false);
         setstatus(statusMachine.RESOLVED);
