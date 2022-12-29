@@ -17,9 +17,8 @@ let page = 1;
 const per_page = 12;
 export const App = () => {
   const [data, setData] = useState([]);
-  const [status, setstatus] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [inputValue, setinputValue] = useState('');
+  const [other, setOther] = useState({ status: '', loading: false, inputValue: '' })
+  const { status, loading, inputValue } = other;
   const [modal, setmodal] = useState([]);
   useEffect(() => {
     if (modal.length > 0) {
@@ -31,18 +30,14 @@ export const App = () => {
   const onSubmit = (data) => {
     page = 1;
     setData([]);
-    setLoading(false);
-    setinputValue(data.inputValue);
-    setstatus(statusMachine.PENDING);
+    setOther({ loading: false, inputValue: data.inputValue, status: statusMachine.PENDING })
     fetchImages(data.inputValue, page, per_page).then(({ data }) => {
       if (data.totalHits > per_page) {
         setData(data.hits);
-        setLoading(true);
-        setstatus(statusMachine.REJECTED);
+        setOther({ loading: true, status: statusMachine.REJECTED })
       }
       if (data.totalHits === 0) {
-        setLoading(false);
-        setstatus(statusMachine.ERROR);
+        setOther({ loading: false, status: statusMachine.ERROR })
       }
     });
   }
@@ -70,16 +65,13 @@ export const App = () => {
   }
   const onClickLoadMore = (e) => {
     page++;
-    setLoading(false);
-    setstatus(statusMachine.PENDING);
+    setOther({ loading: false, status: statusMachine.PENDING })
     fetchImages(inputValue, page, per_page).then(({ data }) => {
       slowScreen();
       if (data.hits.length < per_page) {
-        setLoading(false);
-        setstatus(statusMachine.RESOLVED);
+        setOther({ loading: false, status: statusMachine.RESOLVED })
       } else {
-        setLoading(true);
-        setstatus(statusMachine.REJECTED);
+        setOther({ loading: true, status: statusMachine.REJECTED })
       }
       return setData(prevState =>
         [...prevState, ...data.hits]
