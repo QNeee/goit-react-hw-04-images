@@ -6,6 +6,6 @@ export const ImageGallery = ({ images, onClick }) => {
     </Container>
 }
 ImageGallery.prototype = {
-    images: PropTypes.array,
-    onClick: PropTypes.func,
+    images: PropTypes.array.isRequired,
+    onClick: PropTypes.func.isRequired,
 }

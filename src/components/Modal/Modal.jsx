@@ -9,5 +9,5 @@ export const Modal = ({ image, onClickOverlay }) => {
 }
 Modal.propTypes = {
     image: PropTypes.string.isRequired,
-    onClickOverlay: PropTypes.func,
+    onClickOverlay: PropTypes.func.isRequired,
 };
