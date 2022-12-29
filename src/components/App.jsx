@@ -13,12 +13,14 @@ const statusMachine = {
   RESOLVED: "resolved",
   ERROR: "error"
 }
+
 let page = 1;
 const per_page = 12;
 export const App = () => {
   const [data, setData] = useState([]);
-  const [other, setOther] = useState({ status: '', loading: false, inputValue: '' })
-  const { status, loading, inputValue } = other;
+  const [other, setOther] = useState({ status: '', loading: false })
+  const { status, loading } = other;
+  const [inputValue, setInputValue] = useState("");
   const [modal, setmodal] = useState([]);
   useEffect(() => {
     if (modal.length > 0) {
@@ -30,7 +32,8 @@ export const App = () => {
   const onSubmit = (data) => {
     page = 1;
     setData([]);
-    setOther({ loading: false, inputValue: data.inputValue, status: statusMachine.PENDING })
+    setOther({ loading: false, status: statusMachine.PENDING, })
+    setInputValue(data.inputValue);
     fetchImages(data.inputValue, page, per_page).then(({ data }) => {
       if (data.totalHits > per_page) {
         setData(data.hits);
